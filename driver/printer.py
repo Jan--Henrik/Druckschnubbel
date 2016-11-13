@@ -35,7 +35,7 @@ class execute():
 
         subprocess.call("sh gpio.sh &", shell=True)
         subprocess.call("fbi --noverbose -d /dev/fb0 -T 7 -t 1 -1 {0}".format(self.filestr), shell=True)
-        subprocess.call("rm {0}".format(self.filestr), shell=True)
+        subprocess.call("rm -f {0}".format(self.filestr), shell=True)
 
 
 class pollfiles():
