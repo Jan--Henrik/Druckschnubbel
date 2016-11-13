@@ -7,7 +7,7 @@ debug = True
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
-app.config['ALLOWED_EXTENSIONS'] = ['txt', 'png', 'jpg', 'jpeg', 'gif']
+app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'gif']
 
 
 def allowed_file(filename):
