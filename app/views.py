@@ -1,13 +1,16 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
+import sys
+sys.path.append( "../creator/" )
+from scretchcard import createCard
 
 debug = True
 
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
-app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'gif']
+app.config['ALLOWED_EXTENSIONS'] = ['txt', 'png', 'jpg', 'jpeg', 'gif']
 
 
 def allowed_file(filename):
@@ -40,7 +43,8 @@ def scratchcard():
 @app.route('/templates/', methods=['POST'])
 def scratchcard_receive():
     text = request.form['text']
-    return text
+    createCard(text)
+    return redirect(url_for('index'))
 
 
 @app.route('/templates/printing.html')
