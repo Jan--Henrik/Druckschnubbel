@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+      <meta charset="UTF-8">
+      <title>Thermodrucker</title>
+      <hr>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+          <h1>Warpzone Thermodrucker</h1>
+          <h3 class="text-muted">Zum drucken Bild / .txt hochladen :3</h3>
+          <h4>Erlaubte Dateitypen: {{Dateitypen}}</h4>
+          <h4><a href="/templates/scratchcard.html">Oder Drucke eine Scratchcard</a></h4>
+      </div>
+      <div>
+      <form action="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file"><br/><br/>
+        <input type="submit" value="Upload">
+      </form>
+          <br/>
+          <h5>Ps. Wenn jemand ein besseres Design (CSS) hat, gerne JanHenrik bescheid geben :)</h5>
+      </div>
+    </div>
+  </body>
+</html>
+ 
