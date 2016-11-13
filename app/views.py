@@ -5,7 +5,7 @@ import sys
 sys.path.append( "../creator/" )
 from scretchcard import createCard
 
-debug = True
+debug = False
 
 app = Flask(__name__)
 
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     if debug == False:
         app.run(
             host="0.0.0.0",
-            port=int("80"),
+            port=int("8080"),
             debug=False
         )
     else:
