@@ -47,9 +47,10 @@ class pollfiles():
 
     def run(self):
         while True:
-            time.sleep(0.5)
+            time.sleep(0.4)
             onlyfiles = [f for f in listdir(self.path) if isfile(join(self.path, f))]
             if len(onlyfiles) > 0:
+                time.sleep(0.4) #to secure that the file ist complete (not half uploaded)
                 self.excec.run(onlyfiles[0])
 
 

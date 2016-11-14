@@ -10,7 +10,7 @@ debug = False
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
-app.config['ALLOWED_EXTENSIONS'] = ['txt', 'png', 'jpg', 'jpeg', 'gif']
+app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'gif']
 
 
 def allowed_file(filename):
@@ -44,7 +44,7 @@ def scratchcard():
 def scratchcard_receive():
     text = request.form['text']
     createCard(text)
-    return redirect(url_for('index'))
+    return redirect(url_for('printing'))
 
 
 @app.route('/templates/printing.html')
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     if debug == False:
         app.run(
             host="0.0.0.0",
-            port=int("8080"),
+            port=int("80"),
             debug=False
         )
     else:
