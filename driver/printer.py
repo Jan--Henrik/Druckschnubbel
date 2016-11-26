@@ -35,7 +35,8 @@ class execute():
             "gm convert  {0} -verbose -resize {1}x{2} -gravity South -extent {3}x{4} -auto-orient {5}".format(
                 self.filestr, new_size[0], new_size[1], self.printwidth, self.printheight, self.filestr), shell=True)
          subprocess.call("sh gpio.sh &", shell=True)
-         subprocess.call("fbi --noverbose -d /dev/fb0 -T 7 -t 2 -1 {0}".format(self.filestr), shell=True)
+         subprocess.call("fbi --noverbose -d /dev/fb0 -T 7 -t 4 -1 {0}".format(self.filestr), shell=True)
+         time.sleep(10)
          subprocess.call("rm -f {0}".format(self.filestr), shell=True)
         except:
          print("Failed, I will try again")
@@ -50,7 +51,9 @@ class pollfiles():
             time.sleep(0.4)
             onlyfiles = [f for f in listdir(self.path) if isfile(join(self.path, f))]
             if len(onlyfiles) > 0:
-                time.sleep(0.4) #to secure that the file ist complete (not half uploaded)
+                #onlyfiles = [f for f in listdir(self.path) if isfile(join(self.path, f))]
+                #time.sleep(0.4) #to secure that the file ist complete (not half uploaded)
+                print(onlyfiles[0])
                 self.excec.run(onlyfiles[0])
 
 

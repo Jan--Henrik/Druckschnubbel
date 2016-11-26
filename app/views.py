@@ -23,16 +23,15 @@ def index():
     return render_template('index.html',
                            Dateitypen=str(app.config['ALLOWED_EXTENSIONS']).replace("[", "").replace("]", "").replace("'", "").replace(",", ", "))
 
-
 @app.route('/upload', methods=['POST'])
 def upload():
-    file = request.files['file']
-    if file and allowed_file(file.filename):
+    uploaded_files = request.files.getlist("file")
+    for file in uploaded_files:
+      print(file)
+      if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)  # check for unallowed chars
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('printing'))
-    else:
-        return redirect(url_for('err'))
+    return redirect(url_for('printing'))
 
 
 @app.route('/templates/scratchcard.html')
@@ -44,6 +43,7 @@ def scratchcard():
 def scratchcard_receive():
     text = request.form['text']
     createCard(text)
+    print("done")
     return redirect(url_for('printing'))
 
 
