@@ -1,4 +1,5 @@
 import os
+import subprocess
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import sys
@@ -52,9 +53,7 @@ def scratchcard_receive():
 
 @app.route('/url', methods=['POST'])
 def url():
-    print("purr")
     text = request.form['text']
-    print(text)
     filename,msg = urllib.urlretrieve(text)
     os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
     return redirect(url_for('printing'))
@@ -71,6 +70,13 @@ def xkcd():
 def pony():
     printPony()
     return redirect(url_for('printing'))    
+
+
+@app.route('/miku')
+def miku():
+    print("meow")
+    subprocess.call("/home/janhenrik/Druckschnubbel/creator/./yandere.sh hatsune_miku", shell=True)
+    return redirect(url_for('printing'))
 
 
 @app.route('/templates/printing.html')
