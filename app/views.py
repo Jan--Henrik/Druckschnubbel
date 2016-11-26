@@ -5,6 +5,8 @@ from werkzeug.utils import secure_filename
 import sys
 import urllib
 from shutil import copyfile
+import requests
+import shutil
 sys.path.append( "../creator/" )
 from scretchcard import createCard
 from pony import printPony
@@ -53,9 +55,11 @@ def scratchcard_receive():
 
 @app.route('/url', methods=['POST'])
 def url():
-    text = request.form['text']
-    filename,msg = urllib.urlretrieve(text)
-    os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
+    adress = request.form['text']
+    response = requests.get(adress, stream=True)
+    with open('/home/janhenrik/Druckschnubbel/app/uploads/%s' % (adress.replace("/","")[15:]), 'wb') as out_file:
+       shutil.copyfileobj(response.raw, out_file)
+    del response
     return redirect(url_for('printing'))
 
 
@@ -74,7 +78,6 @@ def pony():
 
 @app.route('/miku')
 def miku():
-    print("meow")
     subprocess.call("/home/janhenrik/Druckschnubbel/creator/./yandere.sh hatsune_miku", shell=True)
     return redirect(url_for('printing'))
 
