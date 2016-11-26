@@ -20,7 +20,7 @@ def getLink(infile):
 def getFile(link):
     adress = "https:%s" % (link)
     response = requests.get(adress, stream=True)
-    with open('/home/janhenrik/Druckschnubbel/app/uploads/%s' % (link.replace("/","")[:10]), 'wb') as out_file:
+    with open('/home/janhenrik/Druckschnubbel/app/uploads/%s' % (link.replace("/","")[15:]), 'wb') as out_file:
        shutil.copyfileobj(response.raw, out_file)
     del response
 
