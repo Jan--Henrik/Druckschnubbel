@@ -25,6 +25,7 @@ def index():
     return render_template('index.html',
                            Dateitypen=str(app.config['ALLOWED_EXTENSIONS']).replace("[", "").replace("]", "").replace("'", "").replace(",", ", "))
 
+
 @app.route('/upload', methods=['POST'])
 def upload():
     uploaded_files = request.files.getlist("file")
@@ -36,12 +37,12 @@ def upload():
     return redirect(url_for('printing'))
 
 
-@app.route('/templates/scratchcard.html')
+@app.route('/scratchcard')
 def scratchcard():
     return render_template('scratchcard.html')
 
 
-@app.route('/templates/', methods=['POST'])
+@app.route('/', methods=['POST'])
 def scratchcard_receive():
     text = request.form['text']
     createCard(text)
@@ -52,6 +53,13 @@ def scratchcard_receive():
 def url():
     text = request.form['text']
     filename,msg = urllib.urlretrieve(text)
+    os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
+    return redirect(url_for('printing'))
+
+
+@app.route('/xkcd')
+def xkcd():
+    filename,msg = urllib.urlretrieve("http://imgs.xkcd.com/comics/xkcde.png")
     os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
     return redirect(url_for('printing'))
 
