@@ -1,12 +1,14 @@
-#!/bin/python3.5
+#!/bin/python2.7
 
 from random import randint
-import subprocess
 import time
 import os
+import urllib
+import requests
+import shutil
 
-infile = sys.argv[1]
 
+infile = "/home/janhenrik/Druckschnubbel/creator/topscore.pony"
 
 def getLink(infile):
     with open(infile,'r') as target:
@@ -16,16 +18,13 @@ def getLink(infile):
     return link
 
 def getFile(link):
-    filename,msg = urllib.urlretrieve("https://derpicdn.net{1}".format(link[link.find(".")+1:],link))
-    os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
+    adress = "https:%s" % (link)
+    response = requests.get(adress, stream=True)
+    with open('/home/janhenrik/Druckschnubbel/app/uploads/%s' % (link.replace("/","")[:10]), 'wb') as out_file:
+       shutil.copyfileobj(response.raw, out_file)
+    del response
 
-t = WriteFile(outString)
-t.start()
-
-while(1):
-
+def printPony():
     link = getLink(infile)
     getFile(link)
-
-    time.sleep(7)
 

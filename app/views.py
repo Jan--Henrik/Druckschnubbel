@@ -2,10 +2,11 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import sys
-sys.path.append( "../creator/" )
-from scretchcard import createCard
 import urllib
 from shutil import copyfile
+sys.path.append( "../creator/" )
+from scretchcard import createCard
+from pony import printPony
 
 debug = False
 
@@ -62,6 +63,12 @@ def xkcd():
     filename,msg = urllib.urlretrieve("http://imgs.xkcd.com/comics/xkcde.png")
     os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
     return redirect(url_for('printing'))
+
+
+@app.route('/pony')
+def pony():
+    printPony()
+    return redirect(url_for('printing'))    
 
 
 @app.route('/templates/printing.html')
