@@ -43,16 +43,18 @@ def scratchcard():
     return render_template('scratchcard.html')
 
 
-@app.route('/', methods=['POST'])
+@app.route('/scr', methods=['POST'])
 def scratchcard_receive():
     text = request.form['text']
     createCard(text)
     return redirect(url_for('printing'))
 
 
-@app.route('/', methods=['POST'])
+@app.route('/url', methods=['POST'])
 def url():
+    print("purr")
     text = request.form['text']
+    print(text)
     filename,msg = urllib.urlretrieve(text)
     os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
     return redirect(url_for('printing'))
