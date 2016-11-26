@@ -45,7 +45,6 @@ def scratchcard():
 def scratchcard_receive():
     text = request.form['text']
     createCard(text)
-    print("done")
     return redirect(url_for('printing'))
 
 
