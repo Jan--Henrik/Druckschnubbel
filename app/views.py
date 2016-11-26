@@ -4,6 +4,8 @@ from werkzeug.utils import secure_filename
 import sys
 sys.path.append( "../creator/" )
 from scretchcard import createCard
+import urllib
+from shutil import copyfile
 
 debug = False
 
@@ -44,6 +46,14 @@ def scratchcard_receive():
     text = request.form['text']
     createCard(text)
     print("done")
+    return redirect(url_for('printing'))
+
+
+@app.route('/', methods=['POST'])
+def url():
+    text = request.form['text']
+    filename,msg = urllib.urlretrieve(text)
+    os.system("cp %s %s" % (filename,"/home/janhenrik/Druckschnubbel/app/uploads"));
     return redirect(url_for('printing'))
 
 
