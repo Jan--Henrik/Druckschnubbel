@@ -38,7 +38,7 @@ class execute():
                     self.filestr, new_size[0], new_size[1], self.printwidth, self.printheight, self.filestr),
                 shell=True)  # convert image
             time.sleep(5)
-            subprocess.call("sh gpio.sh &", shell=True)  # toogle printer pin
+            subprocess.call("sh driver/gpio.sh &", shell=True)  # toogle printer pin
             subprocess.call("fbi --noverbose -d /dev/fb0 -T 7 -t 6 -1 {0}".format(self.filestr),
                             shell=True)  # show image
             time.sleep(15)  # time the printer need to print

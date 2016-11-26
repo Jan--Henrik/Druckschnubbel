@@ -8,7 +8,7 @@ import requests
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
-sys.path.append("../creator/")
+sys.path.append("creator/")
 from scretchcard import createCard
 from pony import printPony
 
@@ -16,7 +16,7 @@ debug = False  # if true it will run on localhost
 
 app = Flask(__name__)
 
-app.config['UPLOAD_FOLDER'] = 'uploads/'  # uploadfolder
+app.config['UPLOAD_FOLDER'] = 'app/uploads/'  # uploadfolder
 app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'gif']  # alowed file extensions
 
 
@@ -79,7 +79,7 @@ def pony():
 
 @app.route('/miku')  # routine for the hatsune miku image
 def miku():
-    subprocess.call("/home/janhenrik/Druckschnubbel/creator/./yandere.sh hatsune_miku", shell=True)
+    subprocess.call("creator/./yandere.sh hatsune_miku", shell=True)
     return redirect(url_for('printing'))
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ../app/uploads/
+cd app/uploads/
 
 TAG="$1"
 TAG="${TAG/ /_}"
