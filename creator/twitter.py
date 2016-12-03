@@ -9,13 +9,6 @@ image_formats = ['jpg', 'png', 'jpeg', 'jfif', 'bmp', 'tiff', 'tga']
 class TwitterBot(object):
     def __init__(self):
 
-		# Hier keys
-
-        self.consumer_key = ""
-        self.consumer_secret = ""
-        self.access_key = ""
-        self.access_secret = ""
-
         self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         self.auth.set_access_token(self.access_key, self.access_secret)
 
@@ -32,7 +25,7 @@ class TwitterBot(object):
                 break
             except Exception as e:
                 print "Failed while polling!"
-				print e
+		print e
             time.sleep(30)
 
     def poll(self):
@@ -74,7 +67,7 @@ class TwitterBot(object):
 
         image = Image.new("RGBA", (800, 600), (0, 0, 0) if dark else (255, 255, 255))
         draw = ImageDraw.Draw(image)
-        font = ImageFont.truetype("creator/data/IndieFlower.ttf", 32)
+        font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf", 32)
 
         user_image = Image.open(userimage)
         user_image = user_image.convert("RGBA")
@@ -92,8 +85,7 @@ class TwitterBot(object):
 
         draw.text((120, 44), username, (255, 255, 255) if dark else (0, 0, 0), font=font)
         draw.text((10, 120), text, (255, 255, 255) if dark else (0, 0, 0), font=font)
-        image.save("HERE_PATH_TO_IMAGE.jpg", "JPEG")
-
+        image.save("app/uploads/%d.jpg" % int(time.time()), "JPEG")
 
 if __name__ == "__main__":
     TwitterBot().run()
