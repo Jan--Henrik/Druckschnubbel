@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 sys.path.append("creator/")
 from scretchcard import createCard
 from pony import printPony
-
+from xkcd import printXkcd
 debug = False  # if true it will run on localhost
 
 app = Flask(__name__)
@@ -66,8 +66,7 @@ def url():
 
 @app.route('/xkcd')  # routine for the newest xkcd comic strip
 def xkcd():
-    filename, msg = urllib.urlretrieve("http://imgs.xkcd.com/comics/xkcde.png")  # url for the newest one
-    os.system("cp %s %s" % (filename, "app/uploads"));
+    printXkcd()
     return redirect(url_for('printing'))
 
 

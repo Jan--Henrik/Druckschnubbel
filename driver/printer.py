@@ -34,7 +34,7 @@ class execute():
                 self.printheight * (self.printpercent - 2.0) / 100.0)
 
             subprocess.call(
-                "gm convert  {0} -verbose -resize {1}x{2} -gravity South -extent {3}x{4} -auto-orient {5}".format(
+                "gm convert  {0} -verbose -resize {1}x{2} -gravity Center -extent {3}x{4} -auto-orient {5}".format(
                     self.filestr, new_size[0], new_size[1], self.printwidth, self.printheight, self.filestr),
                 shell=True)  # convert image
             time.sleep(5)
