@@ -42,7 +42,7 @@ def upload():
     return redirect(url_for('printing'))
 
 
-@app.route('/scratchcard')  # routine for the scretchcard input
+@app.route('/scratchcard', methods=['POST'])  # routine for the scretchcard input
 def scratchcard():
     return render_template('scratchcard.html')
 
@@ -64,19 +64,19 @@ def url():
     return redirect(url_for('printing'))
 
 
-@app.route('/xkcd')  # routine for the newest xkcd comic strip
+@app.route('/xkcd', methods=['POST'])  # routine for the newest xkcd comic strip
 def xkcd():
     printXkcd()
     return redirect(url_for('printing'))
 
 
-@app.route('/pony')  # routine for the random pony script
+@app.route('/pony', methods=['POST'])  # routine for the random pony script
 def pony():
     printPony()
     return redirect(url_for('printing'))
 
 
-@app.route('/miku')  # routine for the hatsune miku image
+@app.route('/miku', methods=['POST'])  # routine for the hatsune miku image
 def miku():
     subprocess.call("creator/./yandere.sh hatsune_miku", shell=True)
     return redirect(url_for('printing'))
