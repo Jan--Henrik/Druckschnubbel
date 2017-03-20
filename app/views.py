@@ -12,6 +12,8 @@ sys.path.append("creator/")
 from scretchcard import createCard
 from pony import printPony
 from xkcd import printXkcd
+from bar import printBarcode
+
 debug = False  # if true it will run on localhost
 
 app = Flask(__name__)
@@ -47,10 +49,22 @@ def scratchcard():
     return render_template('scratchcard.html')
 
 
+@app.route('/barcode', methods=['POST'])  # routine for the barcode input
+def barcode():
+    return render_template('barcode.html')
+
+
 @app.route('/scr', methods=['POST'])  # routine to render the scretchcard
 def scratchcard_receive():
     text = request.form['text']
     createCard(text)
+    return redirect(url_for('printing'))
+
+
+@app.route('/bar', methods=['POST'])  # routine to render the scretchcard
+def barcode_receive():
+    text = request.form['text']
+    printBarcode(text)
     return redirect(url_for('printing'))
 
 
