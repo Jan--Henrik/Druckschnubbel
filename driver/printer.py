@@ -29,19 +29,21 @@ class execute():
             if img.size[0] < img.size[1]:
                 self.rotflag = True
 
-            new_size = (
-                self.printwidth * (self.printpercent - 2.0) / 100.0,
-                self.printheight * (self.printpercent - 2.0) / 100.0)
+            new_size = (self.printwidth * (self.printpercent - 2.0) / 100.0,self.printheight * (self.printpercent - 2.0) / 100.0)
 
-            subprocess.call(
-                "gm convert  {0} -verbose -resize {1}x{2} -gravity Center -extent {3}x{4} -auto-orient {5}".format(
-                    self.filestr, new_size[0], new_size[1], self.printwidth, self.printheight, self.filestr),
-                shell=True)  # convert image
-            time.sleep(5)
-            subprocess.call("sh driver/gpio1.sh &", shell=True)  # toogle printer pin
-            subprocess.call("fbi --noverbose -d /dev/fb0 -T 7 -t 6 -1 {0}".format(self.filestr),
-                            shell=True)  # show image
-            time.sleep(10)
+            subprocess.call("gm convert  {0} -verbose -resize {1}x{2} -gravity Center -extent {3}x{4} -auto-orient {5}".format(self.filestr, new_size[0], new_size[1], self.printwidth, self.printheight, self.filestr),shell=True)  # convert image
+            while (isfile("driver/1.lock") or isfile("driver/2.lock")):
+                if (not isfile("1.lock")):
+                    print "1"
+                    printerNumber = 1
+                    break;
+                if (not isfile("2.lock")):
+                    print "2"
+                    printerNumber = 2
+                    break;
+            subprocess.call("sh driver/gpio{0}.sh &".format(printerNumber), shell=True)  # toogle printer pin
+            subprocess.call("fbi --noverbose -d /dev/fb0 -T 7 -t 6 -1 {0}".format(self.filestr),shell=True)  # show image
+            time.sleep(2)
             subprocess.call("rm -f {0}".format(self.filestr), shell=True)  # remove the image
         except:
             print("Failed, I will try again")  # not so good errorhandling
