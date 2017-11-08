@@ -38,10 +38,10 @@ class execute():
                     self.filestr, new_size[0], new_size[1], self.printwidth, self.printheight, self.filestr),
                 shell=True)  # convert image
             time.sleep(5)
-            subprocess.call("sh driver/gpio.sh &", shell=True)  # toogle printer pin
+            subprocess.call("sh driver/gpio1.sh &", shell=True)  # toogle printer pin
             subprocess.call("fbi --noverbose -d /dev/fb0 -T 7 -t 6 -1 {0}".format(self.filestr),
                             shell=True)  # show image
-            time.sleep(10)  # time the printer need to print
+            time.sleep(10)
             subprocess.call("rm -f {0}".format(self.filestr), shell=True)  # remove the image
         except:
             print("Failed, I will try again")  # not so good errorhandling
